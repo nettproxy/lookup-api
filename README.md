@@ -12,13 +12,15 @@
 ## Endpoints
 - **User Information**: `/api/v1/user/:id`
 - **Bot Information**: `/api/v1/bot/:id`
+- **Guild Information**: `/api/v1/guild/:id`
 
 (Replace `:id` with the target user or bot ID.)
 
 ## Features
-- **Supported Endpoints**:  
+- **Supported Endpoints**:
   - `/api/v1/user/:id`
   - `/api/v1/bot/:id`
+  - `/api/v1/guild/:id`
 
 ---
 

@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import token from "../config.json" assert { type: "json" };
-import idToDate from "../funcs"
+import idToDate from "../funcs.js"
 
 
 const app = express();
@@ -11,10 +11,6 @@ app.get("/", (req, res) => {
     res.send("welcome! endpoints: /api/v1/guild/:id\n/api/v1/user/:id\n/api/v1/bot/:id")
 });
 
-app.get('api/v1/guild/:id/', function(req,res) {
-    res.status(403);
-    res.send("monokai's gay (soon)")
-});
 
 app.get("/api/v1/user/:id/", function(req,res){
     let id = req.params.id;
@@ -93,6 +89,38 @@ app.get("/api/v1/bot/:id/", function(req,res){
         });
     } catch (err) {
         console.log(err);
+    }
+});
+
+app.get("/api/v1/guild/:id/", function(req, res) {
+    let id = req.params.id;
+
+    try {
+        fetch(`https://canary.discord.com/api/v10/guilds/${id}/widget.json`, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            if (json.code && json.code === 500004) {
+                res.send({
+                    error: "Guild is non-existent, or not on discovery"
+                })
+                return;
+            }
+
+            let output = {
+                guild_id: json.id,
+                guild_name: json.name,
+                presence_count: json.presence_count,
+                instant_invite: json.instant_invite
+            }
+            res.send(output)
+        })
+    } catch (e) {
+        res.send(e)
+        return res.status(500)
     }
 });
 

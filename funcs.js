@@ -1,4 +1,4 @@
-function idToDate(id) {
+export function idToDate(id) {
     let temp = parseInt(id).toString(2);
     let length = 64 - temp.length;
 
@@ -11,3 +11,5 @@ function idToDate(id) {
 
     return date;
 }
+
+export default idToDate;

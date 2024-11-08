@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
-import token from "./config.json" assert { type: "json" };
+import token from "../config.json" assert { type: "json" };
+import idToDate from "../funcs"
 
 
 const app = express();
@@ -9,20 +10,6 @@ const app = express();
 app.get("/", (req, res) => {
     res.send("welcome! endpoints: /api/v1/guild/:id\n/api/v1/user/:id\n/api/v1/bot/:id")
 });
-
-function idToDate(id) {
-    let temp = parseInt(id).toString(2);
-    let length = 64 - temp.length;
-
-    if (length > 0)
-        for (let i = 0; i < length; i++)
-            temp = "0" + temp;
-
-    temp = temp.substring(0, 42)
-    let date = new Date(parseInt(temp, 2) + 1420070400000)
-
-    return date;
-}
 
 app.get('api/v1/guild/:id/', function(req,res) {
     res.status(403);

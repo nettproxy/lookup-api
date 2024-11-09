@@ -103,9 +103,10 @@ app.get("/api/v1/guild/:id/", function(req, res) {
         })
         .then((res) => res.json())
         .then((json) => {
-            if (json.code && json.code === 500004) {
+            if (json.code === 50004) {
+                res.status(500);
                 res.send({
-                    error: "Guild is non-existent, or not on discovery"
+                    error_code: "50004", error: "Guild is non-existent, or not on discovery page!"
                 })
                 return;
             }

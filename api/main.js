@@ -3,6 +3,7 @@ import cors from "cors";
 import fetch from "node-fetch";
 import token from "../config.json" assert { type: "json" };
 import idToDate from "../funcs.js"
+import FLAGS from "../flags.js"
 
 
 const app = express();
@@ -39,14 +40,26 @@ app.get("/api/v1/user/:id/", function(req,res){
                 avatarUrl = `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.png?size=1024`
             }
 
+            let pubFlags = [];
+
+            FLAGS.forEach((flag) => {
+                if (json.public_flags & flag.bitwise) pubFlags.push(flag.flag)
+            });
+
+            console.log(json.public_flags)
+
+            console.log(pubFlags)
+
             var createdAt = idToDate(json.id)
 
             let output = {
                username: json.username,
                account_created: createdAt.toString().replace("T", "").replace("Z", ""),
                id: json.id,
+               badges: pubFlags,
                discriminator: json.discriminator,
                display_name: json.global_name,
+               nitro: json.premium_type,
                accent: json.accent_color,
                avatar: {
                 avatar: json.avatar,
@@ -55,6 +68,11 @@ app.get("/api/v1/user/:id/", function(req,res){
                banner: {
                 id: json.banner,
                 url: bannerUrl,
+               },
+               clan: {
+                clan_tag: json.clan && json.clan.tag ? json.clan.tag : null,
+
+                guild_id: json.clan && json.clan.identity_guild_id ? json.clan.identity_guild_id : null,
                }
             }
 

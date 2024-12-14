@@ -13,3 +13,5 @@ export function idToDate(id) {
 }
 
 export default idToDate;
+
+//! SNOWFLAKE CONVERTION!!!

@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
-import token from "../config.json" assert { type: "json" };
+import { readFileSync } from 'fs';
 import idToDate from "../funcs.js"
 import FLAGS from "../flags.js"
 
+const token = JSON.parse(readFileSync(new URL('../config.json', import.meta.url)));
 
 const app = express();
 

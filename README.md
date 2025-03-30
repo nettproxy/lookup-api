@@ -7,7 +7,7 @@
 ---
 
 ## Server
-- **Our Website/API**: [http://45.131.108.38:1337/](http://45.131.108.38:1337/)
+- **Our Website/API**: ~~http://45.131.108.38:1337/~~ DOESNT EXIST ANYMORE
 
 ## Endpoints
 - **User Information**: `/api/v1/user/:id`
@@ -33,7 +33,7 @@
 ### Installation
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/monokaiidev/lookup-api.git
+   git clone https://github.com/nettproxy/lookup-api.git
    cd lookup-api
 
 
